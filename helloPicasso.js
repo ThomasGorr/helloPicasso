@@ -12,7 +12,7 @@ define([
                     dimensions: {
                         uses: "dimensions",
                         min: 1,
-                        max: 2,
+                        max: 1,
                     },
                     measure: {
                         uses: "measures",
@@ -56,61 +56,70 @@ define([
                         scales: {
                             x_axis: {
                                 data: {field: 'qMeasureInfo/0'},
-                                expand: 0.1
+                                min: 0,
+                                max: 120,
+                                expand: 0.1,
+                                ticks: {
+                                    distance: 100
+                                }
                             },
                             y_axis: {
                                 data: {field: 'qMeasureInfo/1'},
                                 invert: true,
-                                expand: 0.2
-                            },
-                            col: {
-                                data: {extract: {field: 'qDimensionInfo/0'}},
-                                type: 'color'
-                            }
+                                expand: 0.1,
+                                min: 0,
+                                max: 90,
                         },
-                        components: [
-                            {
-                                key: 'my_x_axis',
-                                type: 'axis',
-                                dock: 'bottom',
-                                scale: 'x_axis'
-                            }, {
-                                key: 'my_y_axis',
-                                type: 'axis',
-                                dock: 'left',
-                                scale: 'y_axis'
-                            },
-                            {
-                                type: 'legend-cat',
-                                dock: 'right',
-                                scale: 'col'
-                            }, {
-                                key: 'dim_point',
-                                type: 'point',
-                                data: {
-                                    extract: {
-                                        field: 'qDimensionInfo/0',
-                                        props: {
-                                            x: {field: 'qMeasureInfo/0'},
-                                            y: {field: 'qMeasureInfo/1'},
-                                            group: {field: 'qDimensionInfo/0'}
-                                        }
+                        col: {
+                            data: {extract: {field: 'qDimensionInfo/0'}},
+                            type: 'color'
+                        }
+                    },
+                    components: [
+                        {
+                            key: 'my_x_axis',
+                            type: 'axis',
+                            dock: 'bottom',
+                            scale: 'x_axis'
+                        },
+                        {
+                            key: 'my_y_axis',
+                            type: 'axis',
+                            dock: 'left',
+                            scale: 'y_axis'
+                        },
+                        {
+                            type: 'legend-cat',
+                            dock: 'right',
+                            scale: 'col'
+                        },
+                        {
+                            key: 'dim_point',
+                            type: 'point',
+                            data: {
+                                extract: {
+                                    field: 'qDimensionInfo/0',
+                                    props: {
+                                        x: {field: 'qMeasureInfo/0'},
+                                        y: {field: 'qMeasureInfo/1'},
+                                        group: {field: 'qDimensionInfo/0'}
                                     }
-                                },
-                                settings: {
-                                    x: { scale: 'x_axis' },
-                                    y: { scale: 'y_axis' },
-                                    shape: 'circle',
-                                    size: 1,
-                                    strokeWidth: 5,
-                                    stroke: '#fff',
-                                    opacity: 0.8,
-                                    fill: {scale: 'col', ref: 'group'}
                                 }
+                            },
+                            settings: {
+                                x: {scale: 'x_axis'},
+                                y: {scale: 'y_axis'},
+                                shape: 'circle',
+                                size: 1,
+                                strokeWidth: 5,
+                                stroke: '#fff',
+                                opacity: 0.8,
+                                fill: {scale: 'col', ref: 'group'}
                             }
-                        ]
-                    }
-                })
+                        }
+                    ]
+                }
+            })
             }
         };
 
