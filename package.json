@@ -1,0 +1,23 @@
+{
+  "name": "hellopicasso",
+  "version": "1.0.0",
+  "description": "Qlik Sense Extension which says Hello World to picasso.js",
+  "main": "helloPicasso.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThomasGorr/helloPicasso.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ThomasGorr/helloPicasso/issues"
+  },
+  "homepage": "https://github.com/ThomasGorr/helloPicasso#readme",
+  "dependencies": {
+    "picasso-plugin-q": "^0.7.0",
+    "picasso.js": "^0.7.0"
+  }
+}
