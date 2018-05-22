@@ -44,6 +44,7 @@ define([
                         data: [],
                     });
                 }
+                console.log("HyperCube", layout.qHyperCube);
 
                 this.chart.update({
                     data: [{
@@ -53,55 +54,61 @@ define([
                     }],
                     settings: {
                         scales: {
-                            y: {
-                                data: {fields: ['qMeasureInfo/0', 'qMeasureInfo/1']},
+                            x_axis: {
+                                data: {field: 'qMeasureInfo/0'},
+                                expand: 0.1
+                            },
+                            y_axis: {
+                                data: {field: 'qMeasureInfo/1'},
                                 invert: true,
-                                expand: 0.5
+                                expand: 0.2
                             },
-                            t: {data: {extract: {field: 'qDimensionInfo/0'}}}
+                            col: {
+                                data: {extract: {field: 'qDimensionInfo/0'}},
+                                type: 'color'
+                            }
                         },
-                        components: [{
-                            type: 'grid-line',
-                            x: 't'
-                        }, {
-                            type: 'axis',
-                            dock: 'left',
-                            scale: 'y'
-                        }, {
-                            type: 'axis',
-                            dock: 'bottom',
-                            scale: 't',
-                            formatter: {
-                                type: 'd3-time',
-                                format: '%Y-%m'
-                            }
-                        }, {
-                            key: 'lines',
-                            type: 'line',
-                            data: {
-                                extract: {
-                                    field: 'qDimensionInfo/0',
-                                    props: {
-                                        low: {field: 'qMeasureInfo/0'},
-                                        high: {field: 'qMeasureInfo/1'}
-                                    }
-                                }
+                        components: [
+                            {
+                                key: 'my_x_axis',
+                                type: 'axis',
+                                dock: 'bottom',
+                                scale: 'x_axis'
+                            }, {
+                                key: 'my_y_axis',
+                                type: 'axis',
+                                dock: 'left',
+                                scale: 'y_axis'
                             },
-                            settings: {
-                                coordinates: {
-                                    major: {scale: 't'},
-                                    minor0: {scale: 'y', ref: 'low'},
-                                    minor: {scale: 'y', ref: 'high'}
+                            {
+                                type: 'legend-cat',
+                                dock: 'right',
+                                scale: 'col'
+                            }, {
+                                key: 'dim_point',
+                                type: 'point',
+                                data: {
+                                    extract: {
+                                        field: 'qDimensionInfo/0',
+                                        props: {
+                                            x: {field: 'qMeasureInfo/0'},
+                                            y: {field: 'qMeasureInfo/1'},
+                                            group: {field: 'qDimensionInfo/0'}
+                                        }
+                                    }
                                 },
-                                layers: {
-                                    curve: 'monotone',
-                                    line: {
-                                        show: false
-                                    },
-                                    area: {}
+                                settings: {
+                                    x: { scale: 'x_axis' },
+                                    y: { scale: 'y_axis' },
+                                    shape: 'circle',
+                                    size: 1,
+                                    strokeWidth: 5,
+                                    stroke: '#fff',
+                                    opacity: 0.8,
+                                    fill: {scale: 'col', ref: 'group'}
                                 }
                             }
-                        }]
+                        ]
                     }
                 })
             }
